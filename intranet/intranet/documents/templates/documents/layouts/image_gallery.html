@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <title>Finance Trust Bank</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300i,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'intranet/photon/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/lightgallery.min.css' %}">    
+    
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/bootstrap-datepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'intranet/photon/fonts/flaticon/font/flaticon.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/swiper.css' %}">
+
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'intranet/photon/css/style.css' %}">
+    
+  </head>
+  <body>
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+
+
+
+    <header class="site-navbar py-3 border-bottom" role="banner">
+
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2" data-aos="fade-down">
+            <h1 class="mb-0"><a href="{% url 'website:all_news' %}" class="text-black h2 mb-0">FTBIntranet</a></h1>
+          </div>
+          <div class="col-10 col-md-8 d-none d-xl-block" data-aos="fade-down">
+            <nav class="site-navigation position-relative text-right text-lg-center" role="navigation">
+
+              <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
+                <li><a href="{% url 'website:all_news' %}">Home</a></li>
+                <li class="has-children active">
+                  <a href="single.html">Albums</a>
+                  <ul class="dropdown">
+                    {% for tag in image_tags %}
+                    <li><a class="btn btn-default filter-button" data-filter="{{tag.tag_name}}">{{tag.tag_name}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+<!--
+          <div class="col-6 col-xl-2 text-right" data-aos="fade-down">
+
+            <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+          </div>-->
+
+        </div>
+      </div>
+      
+    </header>
+
+
+
+  <div class="site-section"  data-aos="fade">
+    <div class="container-fluid">
+      
+      <div class="row justify-content-center">
+        
+        <div class="col-md-7">
+          <div class="row mb-5">
+            <div class="col-12 ">
+              <h2 class="site-section-heading text-center">Finance Trust Bank Image Gallery</h2>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+      <div class="row" id="lightgallery">
+        {% for image in images %}
+          <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 item filter {{image.image_tag.tag_name}}" data-aos="fade" data-src="{{image.image.url}}" data-sub-html="<h4>{{image.image_tag.tag_name}}</h4><p>{{image.image_description}}</p>">
+            <a href="#">
+              <img src="{{image.image.url}}" alt="{{image.image_description}}" class="img-fluid">
+            </a>
+          </div>
+        {% endfor %}
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="footer py-4">
+    <div class="container-fluid text-center">
+      <p>
+       Image Gallery <a href="https://financetrust.co.ug" target="_blank" >Finance Trust Bank</a>
+      </p>
+    </div>
+  </div>
+
+    
+
+    
+    
+  </div>
+
+  <script src="{% static 'intranet/photon/js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/jquery-ui.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/popper.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/swiper.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/aos.js' %}"></script>
+
+  <script src="{% static 'intranet/photon/js/picturefill.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/lightgallery-all.min.js' %}"></script>
+  <script src="{% static 'intranet/photon/js/jquery.mousewheel.min.js' %}"></script>
+
+  <script src="{% static 'intranet/photon/js/main.js' %}"></script>
+  
+  <script>
+    $(document).ready(function(){
+      $('#lightgallery').lightGallery();
+    });
+  </script>
+  <script type="text/javascript">
+$(document).ready(function(){
+
+    $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        
+        if(value == "all")
+        {
+            //$('.filter').removeClass('hidden');
+            $('.filter').show('1000');
+        }
+        else
+        {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+            $(".filter").not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');
+            
+        }
+    });
+    
+    if ($(".filter-button").removeClass("active")) {
+$(this).removeClass("active");
+}
+$(this).addClass("active");
+
+});
+</script>
+    
+  </body>
+</html>

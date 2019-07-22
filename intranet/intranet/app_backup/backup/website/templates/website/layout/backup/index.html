@@ -1,0 +1,259 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+  <link href="{% static 'intranet/news-style/css/media_query.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link href="{% static 'intranet/news-style/css/owl.carousel.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'intranet/news-style/css/owl.theme.default.css' %}" rel="stylesheet" type="text/css"/>
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'intranet/news-style/css/style_1.css' %}" rel="stylesheet" type="text/css"/>
+
+  <link rel="stylesheet" href="{% static 'intranet/css/home-page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+<!-- Second box here -->
+<div class="container-fluid">
+<div class="container animate-box" data-animate-effect="fadeIn" style="margin-top:50px;">
+    <div class="row" style="margin-right:60px;">
+
+        <div>
+            <a href=""><div class="fh5co_heading py-2 mb-4 home-header">Internal Adverts</div></a>
+        </div>
+        <div class="owl-carousel owl-theme js" id="slider1">
+          {% for advert in adverts %}
+            <div class="item px-2">
+              <a href="{% url 'website:advert_details' advert.id %}" class="text-white" style="color:#fff;">
+                <div class="fh5co_latest_trading_img_position_relative">
+
+                      {% if advert.advert_image %}
+                      <div class="fh5co_latest_trading_img" >
+                        <img src="{{ BASE_DIR }}/media/{{advert.advert_image}}"  alt="" class="fh5co_img_special_relative"/>
+                      </div>
+                      {% else %}
+                      <div class="fh5co_latest_trading_img" >
+                        <img src="{{ BASE_DIR }}/media/logo/logo.png"  alt="" class="fh5co_img_special_relative"/>
+                      </div>
+                      {% endif %}
+
+                    <div class="fh5co_latest_trading_img_position_absolute"></div>
+                    <div class="fh5co_latest_trading_img_position_absolute_1 text-background">
+                        <h4>{{advert.advert_title}}</h4>
+                        <div class="fh5co_latest_trading_date_and_name_color" style="color:#fff;">
+                          <h5>{{advert.created_by.first_name}} {{advert.created_by.last_name}}  - {{advert.created_at}}</h5>
+                        </div>
+                        {% if advert.advert_video %}
+                        <small>Click to watch Video</small>
+                        {% endif %}
+                    </div>
+
+
+
+                </div>
+                </a>
+            </div>
+            {% empty %}
+            <div class="item px-2">
+                <h3>No Campaigns Available</h3>
+            </div>
+            {% endfor %}
+
+
+
+        </div>
+
+
+
+      <!-- <div class="col-md-6">
+
+        <div>
+            <a href="{% url 'website:all_events' %}"><div class="fh5co_heading py-2 mb-4 home-header">Events</div></a>
+        </div>
+        <div class="owl-carousel owl-theme js" id="slider2">
+          {% for event in events %}
+            <div class="item px-2">
+                <div class="fh5co_latest_trading_img_position_relative">
+                  <a href="{% url 'website:event_details' event.id %}" class="text-white" style="color:#fff;">
+                      {% if event.event_image %}
+                      <div class="fh5co_latest_trading_img" >
+                        <img src="{{ BASE_DIR }}{{event.event_image}}"  alt="" class="fh5co_img_special_relative"/>
+                      </div>
+                      {% else %}
+
+                      <div class="fh5co_latest_trading_img" >
+                        <img src="{{ BASE_DIR }}/media/logo/logo.png"  alt="" class="fh5co_img_special_relative"/>
+                      </div>
+
+                      {% endif %}
+                    <div class="fh5co_latest_trading_img_position_absolute"></div>
+                    <div class="fh5co_latest_trading_img_position_absolute_1 text-background">
+                        <h4>{{event.event_title}}</h4>
+                        <div class="fh5co_latest_trading_date_and_name_color" style="color:#fff;">Starts: {{event.event_start_date}}</div>
+                    </div>
+                </div>
+              </a>
+            </div>
+            {% empty %}
+            <div class="item px-2">
+                <div class="fh5co_latest_trading_img_position_relative">
+                    <div class="fh5co_latest_trading_img" >
+                      <img src="{{ BASE_DIR }}/media/logo/logo.png" alt=""
+                                                           class="fh5co_img_special_relative"/>
+                                                         </div>
+                    <div class="fh5co_latest_trading_img_position_absolute"></div>
+                    <div class="fh5co_latest_trading_img_position_absolute_1 text-background">
+                        <h4>No Events Available</h4>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+      </div> -->
+
+
+    </div>
+</div>
+</div>
+
+<!-- Third Box -->
+<div class="container-fluid">
+<div class="container animate-box" data-animate-effect="fadeIn" style="margin-top:10px;">
+    <div class="row" style=" margin-right:60px;">
+      <div>
+          <a href="{% url 'website:all_news' %}"><div class="fh5co_heading py-2 mb-4 home-header">Lastest News</div></a>
+      </div>
+
+      <div class="owl-carousel owl-theme js" id="slider3">
+        {% for n in news %}
+          <div class="item px-2">
+            <a href="{% url 'website:news_details' n.id %}" class="text-white" style="color:#fff;">
+              <div class="fh5co_latest_trading_img_position_relative">
+
+                    {% if n.news_image %}
+                    <div class="fh5co_latest_trading_img" >
+                      <img src="{{ BASE_DIR }}/media/{{n.news_image}}"  alt="" class="fh5co_img_special_relative"/>
+                    </div>
+                    {% else %}
+                    <div class="fh5co_latest_trading_img" >
+                      <img src="{{ BASE_DIR }}/media/logo/logo.png"  alt="" class="fh5co_img_special_relative"/>
+                    </div>
+                    {% endif %}
+
+                  <div class="fh5co_latest_trading_img_position_absolute"></div>
+                  <div class="fh5co_latest_trading_img_position_absolute_1 text-background">
+                      <h4>{{n.title}}</h4>
+                      <div class="fh5co_latest_trading_date_and_name_color" style="color:#fff;">
+                        <h5>{{n.created_by.first_name}} {{n.created_by.last_name}}  - {{n.created_at}}</h5>
+                      </div>
+                      {% if n.new_video %}
+                      <small>Click to watch Video</small>
+                      {% endif %}
+                  </div>
+              </div>
+            </a>
+          </div>
+          {% empty %}
+          <div class="item px-2">
+              <h3>No Campaigns Available</h3>
+          </div>
+          {% endfor %}
+
+      </div>
+
+    </div>
+</div>
+</div>
+
+
+<!-- Fourth -->
+
+<div class="container-fluid">
+<div class="container animate-box" data-animate-effect="fadeIn" style="margin-top:10px; margin-bottom:50px;">
+    <div class="row" style=" margin-right:60px;">
+      <div>
+          <a href="{% url 'website:all_branch_news' %}"><div class="fh5co_heading  py-2 mb-4 home-header">Happening at Branches</div></a>
+      </div>
+
+      <div class="owl-carousel owl-theme js" id="slider4">
+        {% for news in branch_news %}
+          <div class="item px-2">
+            <a href="{% url 'website:branch_news' news.id %}" class="text-white" style="color:#fff;">
+              <div class="fh5co_latest_trading_img_position_relative">
+
+                    {% if news.news_image %}
+                    <div class="fh5co_latest_trading_img" >
+                      <img src="{{ BASE_DIR }}/media/{{news.news_image}}"  alt="" class="fh5co_img_special_relative"/>
+                    </div>
+
+                    {% elif news.news_video %}
+                    <div class="fh5co_latest_trading_img" >
+                      <video class="event-data-video" width="auto" height="180" controls>
+                      <source src="{{ BASE_DIR }}/media/{{news.news_video}}" type="video/mp4">
+                      Browser not supported for Videos.
+                      </video>
+                    </div>
+
+                    {% elif news.news_image and news.news_video %}
+                    <div class="fh5co_latest_trading_img" style="background-image: url({{ BASE_DIR }}/media/{{news.news_image}});" >
+                      <video class="event-data-video" width="100%" height="180" controls>
+                      <source src="{{ BASE_DIR }}/media/{{news.news_video}}" type="video/mp4">
+                      Browser not supported for Videos.
+                      </video>
+                    </div>
+
+                    {% else %}
+
+                    <div class="fh5co_latest_trading_img" >
+                      <img src="{{ BASE_DIR }}/media/logo/logo.png"  alt="" class="fh5co_img_special_relative"/>
+                    </div>
+
+                    {% endif %}
+                  <div class="fh5co_latest_trading_img_position_absolute"></div>
+                  <div class="fh5co_latest_trading_img_position_absolute_1 text-background">
+                      <h4>{{news.title}}</h4>
+                      <div class="fh5co_latest_trading_date_and_name_color" style="color:#fff;"><h5>{{news.created_by.first_name}} {{news.created_by.last_name}}  - {{news.created_at}}</h5></div>
+                  </div>
+              </div>
+            </a>
+          </div>
+          {% empty %}
+          <div class="item px-2">
+              <h3>No News Available</h3>
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+</div>
+</div>
+
+
+
+</div>
+
+<!-- /.content-wrapper -->
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}
+<!-- Modernizr JS -->
+<script src="{% static 'intranet/news-style/js/modernizr-3.5.0.min.js' %}"></script>
+<script src="{% static 'intranet/news-style/js/owl.carousel.min.js' %}"></script>
+<!--<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
+<script src="{% static 'intranet/news-style/js/tether.min.js' %}"></script>
+<!-- Waypoints -->
+<script src="{% static 'intranet/news-style/js/jquery.waypoints.min.js' %}"></script>
+<!-- Main -->
+<script src="{% static 'intranet/news-style/js/main.js' %}"></script>
+{% endblock %}

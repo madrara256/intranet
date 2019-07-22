@@ -1,0 +1,208 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="intranet/editor/dist/css/dist/css/wysihtml5.css" type="text/css" />
+<link rel="stylesheet" href="{% static 'intranet/plugins/toastr/build/toastr.css' %}">
+<style type="text/css">
+
+.form-control{
+  border-radius: 15px;
+}
+
+
+.dropdown:hover .inner {
+display: block;
+background-color: #fff;
+}
+
+.dropdown-toggle:hover{
+  display: block;
+  background-color: #fff;
+}
+
+.text{
+  color: #000;
+}
+
+.bs-searchbox{
+  background-color: #fff;
+}
+
+.open:hover{
+  background-color: #fff;
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <!-- Main content -->
+  <section class="content" style="margin-top:50px;">
+
+    <div class="row">
+      <h3 class="text-center">Complete Profile</h3>
+      <form action="{% url 'website:save_profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="col-md-4">
+
+        <!-- Profile Image -->
+        <div class="box box-primary">
+          <div class="box-body box-profile">
+
+            <div class="form-group has-feedback">
+              <label>Upload Profile Image</label>
+            <input type="file"  name="user_image" accept="image/*">
+            </div>
+
+            <div class="form-group has-feedback">
+              <label>Select Your Department<small><i style="color:#ff0000;"> --This is Required</small></i></label>
+            <select id="department" name="department" class="form-control-sm form-control selectpicker" data-live-search="true" title="Select Your Department"  required>
+               {% for department in departments %}
+               <option value="{{department.id}}">{{department.name}}</option>
+               {% empty %}
+               <option value="">..No departments Available..</option>
+               {% endfor %}
+           </select>
+         </div>
+
+            <div class="form-group has-feedback">
+              <label>Select your Branch<small><i style="color:#ff0000;"> --This is Required</small></i></label>
+            <select id="branch" name="branch" class="form-control-sm form-control selectpicker" data-live-search="true" title="Select Your Branch"  required>
+               {% for branch in branches %}
+               <option value="{{branch.id}}">{{branch.branch_name}}</option>
+               {% empty %}
+               <option value="">..No Branches Available..</option>
+               {% endfor %}
+           </select>
+         </div>
+
+            <ul class="list-group list-group-unbordered">
+
+              <div class="form-group has-feedback">
+                <label>Facebook Account</label>
+                <input type="text" class="form-control" name="user_facebook" placeholder="https://www.facebook.com/user-name" >
+              </div>
+
+              <div class="form-group has-feedback">
+                <label>Twitter Account</label>
+                <input type="text" class="form-control" name="user_twitter" placeholder="https://twitter.com/user-name" >
+              </div>
+
+              <div class="form-group has-feedback">
+                <label>Linked Account</label>
+                <input type="text" class="form-control" name="user_linkedin" placeholder="https://ug.linkedin.com/in/user-name" >
+              </div>
+
+            </ul>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-8">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#activity" data-toggle="tab">Staff Information</a></li>
+          </ul>
+          <div class="tab-content">
+
+
+            <div class="active tab-pane" id="activity">
+
+              <!-- Post -->
+              <div class="post">
+                <div class="user-block">
+                        <h4>Basic Info</h4>
+
+                            <div class="form-group has-feedback">
+                              <label>Birth Day</label>
+                              <input type="date" class="form-control" name="user_birthday" >
+                            </div>
+
+                            <div class="form-group has-feedback">
+                              <label>Social Telephone</label>
+                              <input type="text" class="form-control" name="user_telephone" placeholder="+256 783 111 111 / +256 753 000 000">
+
+                            </div>
+
+                            <div class="form-group has-feedback">
+                              <label>Social Email</label>
+                              <input type="email" class="form-control" name="user_email" placeholder="myemail@gmail.com">
+                            </div>
+
+                            <div class="form-group has-feedback">
+                              <label>Website</label>
+                              <input type="text" class="form-control" name="user_website" placeholder="http://www.mysite.com">
+                            </div>
+
+                              <div class="form-group has-feedback">
+                                <label>Brief Bio</label>
+                                <textarea class="textarea round-input" name="user_bio" placeholder="Bio Info..."
+                                    style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #90caf9; border-radius: 10px; padding:10px;"></textarea>
+                              </div>
+
+                              <div class="form-group has-feedback">
+                                <div class="row">
+                                  <div class="col-md-4"></div>
+                                  <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success btn-block btn-flat">Create Profile</button>
+                                  </div>
+                                  <div class="col-md-4"></div>
+                                </div>
+                              </div>
+                </div>
+                <!-- /.user-block -->
+
+              </div>
+              <!-- /.post -->
+
+
+            </div>
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </form>
+    </div>
+    <!-- /.row -->
+
+  </section>
+  <!-- /.content -->
+
+  {% include 'documents/menu/side_menu.html' %}
+</div>
+
+<!-- /.content-wrapper -->
+
+{% endblock %}
+
+{% block custom_script %}
+<script src="{% static 'intranet/editor/dist/js/wysihtml5-enhanced.js' %}"></script>
+<script src="{% static 'intranet/plugins/toastr/toastr.js' %}"></script>
+<script type="text/javascript">
+$('.textarea').wysiHTML5N();
+</script>
+
+{% if messages %}
+<script type="text/javascript">
+{% for message in messages %}
+toastr.success( "{{message}}" );
+{% endfor %}
+</script>
+{% endif %}
+
+{% endblock %}

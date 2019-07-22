@@ -1,0 +1,488 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'intranet/css/home-page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-6">
+        <h4 class="text-center home-header">News and Annoucements</h4>
+{% for n in news %}
+<ul class="event-list">
+  <li>
+    <div class="info" style="margin-left:5px;">
+      <a>
+      <h5>
+        {{n.title}} |
+        <small><i class="fa fa-clock-o"></i>{{n.created_at}}</small> | <small><a>Full Story</a></small>
+      </h5>
+      </a>
+      <div class="">
+        {{ n.message|safe|truncatewords:"25"|linebreaks}}
+      </div>
+    </div>
+  </li>
+  <!-- Discription and Videos/Images -->
+            <li class="event-details">
+                <div class="info" style="height:auto">
+                    <p class="desc">{{n.message}}</p>
+                    {% if n.news_image %}
+                    <div class="event-data-image" style="background-image: url({{ BASE_DIR }}/media/{{n.news_image}});">
+                    </div>
+                    {% endif %}
+
+                    {% if n.news_video %}
+                    <video class="event-data-video" width="500" controls>
+                    <source src="{{ BASE_DIR }}/media/{{n.news_video}}" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                    </video>
+                    {% endif %}
+                </div>
+            </li>
+</ul>
+{% empty %}
+
+<ul class="event-list">
+  <li>
+    <div class="info">
+      <p>No News Avalibale</p>
+    </div>
+    <div class="social">
+
+    </div>
+  </li>
+  <!-- Discription and Videos/Images -->
+            <li class="event-details"></li>
+</ul>
+
+{% endfor %}
+
+
+      </div>
+
+      <div class="col-md-6">
+        <h4 class="text-center home-header">Events</h4>
+{% for event in events %}
+
+<ul class="event-list">
+  <li>
+    <time>
+      <span class="day">{{event.event_start_day}}</span>
+      <span class="month">{{event.event_start_month}}</span>
+    </time>
+    <!-- <img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" /> -->
+    <div class="info">
+      <a><h5>{{event.event_title}}</h5></a>
+      <p class="desc"><b>Starts:</b> {{ event.event_start_date }}</p>
+      <p class="desc"><b>Ends:</b> {{event.event_end_date}}</p>
+      <p class="desc"><b>Location:</b>{{event.event_location}}
+    </div>
+    <div class="social">
+
+    </div>
+  </li>
+  <!-- Discription and Videos/Images -->
+            <li class="event-details">
+                <div class="info" style="height:auto">
+                    <p class="desc">{{event.event_message}}</p>
+                    {% if event.event_image %}
+                    <div class="event-data-image" style="background-image: url({{ BASE_DIR }}/media/{{event.event_image}});">
+                    </div>
+                    {% endif %}
+
+                    {% if event.event_video %}
+                    <video class="event-data-video" width="500" controls>
+                    <source src="{{ BASE_DIR }}/media/{{event.event_video}}" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                    </video>
+                    {% endif %}
+
+
+
+
+                </div>
+            </li>
+
+</ul>
+
+{% empty %}
+
+<ul class="event-list">
+  <li>
+    <div class="info">
+      <p>No News Avalibale</p>
+    </div>
+    <div class="social">
+
+    </div>
+  </li>
+  <!-- Discription and Videos/Images -->
+            <li class="event-details"></li>
+</ul>
+
+{% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+  {% include 'documents/menu/side_menu.html' %}
+
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock %}
+
+{% block custom_script %}
+
+<script type="text/javascript">
+// When the DOM is ready, run this function
+$(document).ready(function() {
+  //Set the carousel options
+  $('#quote-carousel').carousel({
+    pause: true,
+    interval: 4000,
+  });
+});
+//Code for handling events.
+$(document).ready(function() {
+               $('.event-details').css('display','none');
+               $('.event-details').css('height','auto');
+               $('.event-details').css('margin-top','-17px');
+               $('.event-details > .info').css('height','auto');
+               $('.disabled').prev().css('cursor','default');
+
+
+               $('.event-list > li').click(function() {
+                   if (!$(this).nextAll('.event-details').first().hasClass('disabled')) {
+                       //$(this).nextAll('.event-details').first().height('auto');
+                       $(this).nextAll('.event-details').first().nextAll('.info').first().height('auto');
+                       $(this).nextAll('.event-details').first().slideToggle();
+                   }
+               });
+           })
+
+</script>
+{% endblock %}
+
+
+
+//Second Back Up
+
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'intranet/css/home-page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-6 news-box" style="margin-top:60px;">
+        <h4 class="text-center home-header">News and Annoucements</h4>
+        {% for n in news %}
+        <!-- Box Comment -->
+          <div class="box box-widget">
+            <div class="box-header with-border">
+              <div class="user-block">
+                <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image">-->
+                <span class="username"><a href="#">By:{{n.created_by.first_name}} {{n.created_by.last_name}} </a></span>
+                <span class="description">Posted - {{n.created_at}}</span>
+              </div>
+              <!-- /.user-block -->
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <h4>{{n.title}}</h4>
+              <p>{{n.message}}</p>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer box-comments">
+              <div class="box-comment">
+
+                <div class="info" style="height:auto">
+                    {% if n.news_image %}
+                    <div class="event-data-image" style="background-image: url({{ BASE_DIR }}/media/{{n.news_image}});">
+                    </div>
+                    {% endif %}
+
+                    {% if n.news_video %}
+                    <video class="event-data-video" width="500" controls>
+                    <source src="{{ BASE_DIR }}/media/{{n.news_video}}" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                    </video>
+                    {% endif %}
+                </div>
+
+              </div>
+              <!-- /.box-comment -->
+            </div>
+          </div>
+          <!-- /.box -->
+          {% empty %}
+          <h4>No News Available</h4>
+          {% endfor %}
+
+      </div>
+      <div class="col-md-6 event-box" style="margin-top:60px;">
+        <h4 class="text-center home-header">Upcoming Events</h4>
+        <div class="upcoming-events">
+          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                </ol>
+
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <div class="body-var" style="background-color:#0d47a1; height:250px; width:auto;">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-6" style="height:250px; ">
+                            <img src="{{ BASE_DIR }}/media/logo/logo.png" class="img-thumbnail" width="170px" height="170px" style="margin-top:5px; margin-bottom:5px;">
+                          </div>
+                          <div class="col-md-6">
+
+                            <div class="" style="color:#fff;">
+                              <h4>Finance Trust Bank Events</h4>
+                              <!-- <p>Date of Event</p>
+                              <p>End Date</p>
+                              <p>Location</p> -->
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+
+                    <div class="carousel-caption">
+
+                    </div>
+                  </div>
+
+                  {% for event in events %}
+
+                  <div class="item">
+                    <div class="body-var" style="background-color:#0d47a1; height:250px; width:auto;">
+                      <div class="container-fluid">
+                        <div class="row">
+
+                          {% if event.event_image %}
+                          <div class="col-md-6" style="height:250px; ">
+                              <img src="{{ BASE_DIR }}{{event.event_image}}" class="img-thumbnail" width="170px" height="170px" style="margin-top:5px; margin-bottom:5px;">
+                          </div>
+                          {% else %}
+                          <div class="col-md-6" style="height:250px; ">
+                            <img src="{{ BASE_DIR }}/media/logo/logo.png" class="img-thumbnail" width="170px" height="170px" style="margin-top:5px; margin-bottom:5px;">
+                          </div>
+                          {% endif %}
+
+                          <div class="col-md-6">
+
+                            <div class="" style="color:#fff;">
+                              <h4>{{event.event_title}}</h4>
+                              <p>Starts: <date>{{event.event_start_date}}</date></p>
+                              <p>Ends: <date>{{event.event_end_date}}</date></p>
+                              <p>Location: {{event.event_location}}</p>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+
+                    <div class="carousel-caption">
+
+                    </div>
+                  </div>
+
+                  {% empty %}
+                  <div class="item">
+                    <div class="body-var" style="background-color:#3c8dbc; height:275px; width:auto;"></div>
+
+                    <div class="carousel-caption">
+                      No Events Available
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                  <span class="fa fa-angle-left"></span>
+                </a>
+
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                  <span class="fa fa-angle-right"></span>
+                </a>
+
+              </div>
+        </div>
+
+
+        <!-- Campaigns and Adverts -->
+
+        <section class="adverts">
+          <div class="branch-news" style="margin-top:50px;">
+
+            <h4 class="text-center home-header">Campaingns and Adverts</h4>
+            {% for advert in adverts %}
+            <!-- Box Comment -->
+              <div class="box box-widget">
+                <div class="box-header with-border">
+                  <div class="user-block">
+                    <span class="username"><a href="#">By:{{advert.created_by.first_name}} {{news.created_by.last_name}} </a></span>
+                    <span class="description">Posted - {{advert.created_at}}</span>
+                  </div>
+                  <!-- /.user-block -->
+                  <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                  <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <h4>{{advert.advert_itle}}</h4>
+                  <p>{{advert.advert_message}}</p>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer box-comments">
+                  <div class="box-comment">
+
+                    <div class="info" style="height:auto">
+                        {% if advert.advert_image %}
+                        <div class="event-data-image" style="background-image: url({{ BASE_DIR }}/media/{{advert.advert_image}});">
+                        </div>
+                        {% endif %}
+
+                        {% if advert.advert_video %}
+                        <video class="event-data-video" width="500" controls>
+                        <source src="{{ BASE_DIR }}/media/{{advert.advert_video}}" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                        </video>
+                        {% endif %}
+                    </div>
+
+                  </div>
+                  <!-- /.box-comment -->
+                </div>
+              </div>
+              <!-- /.box -->
+              {% empty %}
+              <h4>No Campaigns Available</h4>
+              {% endfor %}
+
+          </div>
+        </section>
+
+        <!-- End Campaign and aveverts scetion -->
+
+        <div class="branch-news" style="margin-top:50px;">
+
+          <h4 class="text-center home-header">Happening at Branches</h4>
+          {% for news in branch_news %}
+          <!-- Box Comment -->
+            <div class="box box-widget">
+              <div class="box-header with-border">
+                <div class="user-block">
+                  <span class="username"><a href="#">By:{{news.created_by.first_name}} {{news.created_by.last_name}} </a> at {{news.branch}}</span>
+                  <span class="description">Posted - {{news.created_at}}</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="box-tools">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+                <!-- /.box-tools -->
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <h4>{{news.title}}</h4>
+                <p>{{news.message}}</p>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer box-comments">
+                <div class="box-comment">
+
+                  <div class="info" style="height:auto">
+                      {% if news.news_image %}
+                      <div class="event-data-image" style="background-image: url({{ BASE_DIR }}/media/{{news.news_image}});">
+                      </div>
+                      {% endif %}
+
+                      {% if news.news_video %}
+                      <video class="event-data-video" width="500" controls>
+                      <source src="{{ BASE_DIR }}/media/{{news.news_video}}" type="video/mp4">
+                      Your browser does not support HTML5 video.
+                      </video>
+                      {% endif %}
+                  </div>
+
+                </div>
+                <!-- /.box-comment -->
+              </div>
+            </div>
+            <!-- /.box -->
+            {% empty %}
+            <h4>No News Available</h4>
+            {% endfor %}
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+  {% include 'documents/menu/side_menu.html' %}
+
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock %}
+
+{% block custom_script %}
+
+<script type="text/javascript">
+
+</script>
+{% endblock %}

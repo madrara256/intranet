@@ -1,0 +1,126 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+
+<style type="text/css">
+.new_communication{
+  font-size: :24px;
+  font-weight: 700;
+  color: #2B60DE;
+  -webkit-animation: blink 1s step-end infinite;
+              animation: blink 1s step-end infinite;
+                  /* color: #FF0000; */
+  }
+  @-webkit-keyframes blink { 50% { visibility: hidden; }}
+          @keyframes blink { 50% { visibility: hidden; }}}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <section  style="margin-top:50px; padding:10px;">
+    <div class="row">
+
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h3 class="text-center">Finance Trust Bank Applications</h3>
+        <div class="form-group" style="margin-top:10px;">
+         <input type="text" style="border: 1px solid #90caf9; border-radius: 25px;"   class="form-control search-files" id="myInput" onkeyup="searchFiles()" placeholder="Search for Applications...">
+        </div>
+      </div>
+      <div class="col-md-3">
+        {% if communication_latest %}
+        <p class="new_communication"><a href="{% url 'blog:index' %}">We have New Announcements</a></p>
+        {% endif %}
+      </div>
+    </div>
+
+
+    <div id="outter_element" class="row">
+{% for application in applications %}
+      <div class="col-lg-3 col-xs-6" name="holder" style="">
+          <!-- small box -->
+          <a href="{{application.application_url}}" target="_blank">
+            <div class="small-box" style="height:80px; background-color:#0087CC; color:#fff; border-radius:15px;">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="app_icon" style="margin-left:5px;">
+                    {% if application.application_logo %}
+                    <img src="{{ BASE_DIR }}/media/{{application.application_logo}}"  alt="" width="50px" height="50px" class="img-thumbnail"/>
+                    {% else %}
+                    <i class="{{application.application_icon}}" style="color:{{application.application_color}};" aria-hidden="true"></i>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <!-- <div class="text-center" style="margin-top: 20px;"> -->
+                  <div class="row" style="margin-top: 10px; margin-right:5px;">
+                    <div class="text-center">{{application.application_name}}</div>
+                  </div>
+                  <div class="row" style="margin-top: 10px;">
+                    {% if application.short_decription %}
+                    <div class="text-center"><small>{{application.short_decription}}</small></div>
+                    {% endif %}
+                  </div>
+                    <!-- <p >{{application.application_name}}</p>
+                    <p><small>{{application.short_decription}}</small></p> -->
+                  <!-- </div> -->
+                </div>
+
+              </div>
+            </div>
+          </a>
+        </div>
+{% empty %}
+No Applications Available
+{% endfor %}
+
+
+    </div>
+  </section>
+
+</div>
+
+<!-- /.content-wrapper -->
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}
+<script type="text/javascript">
+
+console.log("This is the Client Address: {{client_addr}}");
+
+function searchFiles(){
+var input, filter, outter_element, innner_element, holder, i;
+input = document.getElementById('myInput');
+filter = input.value.toUpperCase();
+
+outter_element = document.getElementById('outter_element');
+
+
+innner_element = document.getElementsByName('holder');
+
+
+for(i = 0; i < innner_element.length; i++){
+  holder = innner_element[i].getElementsByTagName('div')[0];
+
+  if(holder.innerHTML.toUpperCase().indexOf(filter) > -1){
+    innner_element[i].style.display="";
+  }else {
+    innner_element[i].style.display = "none";
+  }
+}
+}
+
+</script>
+{% endblock %}

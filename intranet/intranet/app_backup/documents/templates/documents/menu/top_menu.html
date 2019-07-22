@@ -1,0 +1,130 @@
+{% load blog_tags %}
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="index2.html" class="logo" style="background-color:#2B60DE;">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini">Finance Trust Bank</span>
+
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Finance Trust Bank</b></span>
+    </a>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-fixed-top" style="background-color:#2B60DE;">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="">
+            <a  href="{% url 'website:all_news' %}">Home</a>
+          </li>
+
+          <li class="">
+            <a  href="{% url 'blog:index' %}">Department Comms
+              <span class="label label-success">{{communications_count}}</span>
+            </a>
+          </li>
+
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">News & Events</a>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="">
+                    <a  href="{% url 'website:all_news' %}">Daily News
+                      <!-- <span class="label label-success">{{news|length}}</span> -->
+                    </a>
+                  </li>
+                  <li class="">
+                    <a  href="{% url 'website:all_branch_news' %}">Branch News
+                      <!-- <span class="label label-success">{{branch_news_count}}</span> -->
+                    </a>
+                  </li>
+                  <li class="">
+                    <a  href="{% url 'website:all_events' %}">Events
+                      <!-- <span class="label label-success">{{events_count}}</span> -->
+                    </a>
+                    </li>
+                </ul>
+              </li>
+
+          <li class="">
+            <a  href="{% url 'website:staff_directory' %}">Staff Directory</a>
+          </li>
+          <li class="">
+            <a  href="{% url 'website:branch_directory' %}">Branch Directory</a>
+          </li>
+
+       {% if request.user|has_group:"Department Document Managers" or request.user|has_group:"Content Managers" or  request.user|has_group:"Branch Managers" %}
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Content Management</a>
+              <ul class="dropdown-menu" role="menu">
+            {% if request.user|has_group:"Department Document Managers" %}
+                <li><a href="{% url 'blog:post_blog' %}">Post Communication</a></li>
+                <li><a href="{% url 'admin:index' %}">Manage Documents</a></li>
+            {% endif %}
+            {% if request.user|has_group:"Content Managers" %}
+            <li><a href="{% url 'website:add_events' %}">Add Events</a></li>
+                <li><a href="{% url 'website:add_news' %}">Add General News</a></li>
+                <li><a href="{% url 'website:add_branch_news' %}">Add Branch News</a></li>
+                <li><a href="{% url 'admin:index' %}">Manage Adverts</a></li>
+            {% endif %}
+
+            {% if request.user|has_group:"Branch Managers" %}
+                <li><a href="{% url 'website:add_branch_news' %}">Add Branch News</a></li>
+            {% endif %}
+              </ul>
+            </li>
+            {% endif %}
+
+
+          {% if user.is_authenticated or user.is_superuser %}
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+              <span class="hidden-xs">{{user.first_name}} {{user.last_name}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <p>
+                  {% if user_profile.office_title %}
+                  {{user_profile.office_title}} -
+                  {% endif %}
+                  {{user_profile.department}}
+                  <p>
+                    <p>
+                  {{user_profile.branch}}
+                  <small>Joined: {{user.date_joined}}</small>
+                </p>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="{% url 'website:edit_profile' %}" class="btn btn-default btn-flat" style="background-color:#595AD4; color:#fff;">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="{% url 'website:logout' %}" class="btn btn-default btn-flat" style="background-color:#FB275D; color:#fff;">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          {% else %}
+
+          <li class="">
+            <a  href="{% url 'website:login' %}">Login</a>
+          </li>
+          {% endif %}
+
+        </ul>
+
+      </div>
+
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->

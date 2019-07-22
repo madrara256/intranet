@@ -1,0 +1,123 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+
+<link href="{% static 'intranet/news-style/css/media_query.css' %}" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<link href="{% static 'intranet/news-style/css/owl.carousel.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'intranet/news-style/css/owl.theme.default.css' %}" rel="stylesheet" type="text/css"/>
+<!-- Bootstrap CSS -->
+<link href="{% static 'intranet/news-style/css/style_1.css' %}" rel="stylesheet" type="text/css"/>
+<!-- Modernizr JS -->
+<script src="{% static 'intranet/news-style/js/modernizr-3.5.0.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'intranet/css/home-page.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row" style="margin-top:40px;">
+      <div class="text-center"><h3>Finance Trust Bank Branch News</h3></div>
+
+      <div class="col-md-8">
+
+        <div class="container-fluid pb-4 pt-4 paddding">
+    <div class="container paddding">
+        <div class="row mx-0">
+            <div class="col-md-8 animate-box" data-animate-effect="fadeInLeft">
+                <div>
+                    <div class="fh5co_heading  py-2 mb-4" style="margin-left:10px;">Recent News</div>
+                </div>
+                {% for n in announcements %}
+                <div class="row pb-4 panel" style="margin-bottom:10px; margin-left:10px; margin-right:10px;">
+                    <div class="panel-body">
+                      <!-- <div class="col-md-5">
+                          <div class="fh5co_hover_news_img">
+                              <div class="fh5co_news_img">
+                                {% if n.news_image %}
+                                <img src="{{ BASE_DIR }}/media/{{n.news_image}}" class="img-thumbnail" alt=""/>
+                                {% else %}
+                                <img src="{{ BASE_DIR }}/media/logo/logo.png" class="img-thumbnail" alt=""/>
+                                {% endif %}
+                              </div>
+                              <div></div>
+                          </div>
+                      </div> -->
+                      <div class=" animate-box">
+                          <a href="{% url 'website:news_details' n.id %}" class="fh5co_magna py-2">{{n.annoucement_title}}</a> <span>|</span><a href="{% url 'website:news_details' n.id %}" class="fh5co_mini_time py-3">
+                            {{n.created_by.first_name}} {{n.created_by.last_name}}  - {{n.created_at}}
+                          </a>
+                          <div class="fh5co_consectetur">{{ n.annoucement_message|safe|truncatewords:"30"|linebreaks}}
+                            <span><a href="{% url 'website:news_details' n.id %}" style="color:#0d47a1;">Read More</a></span>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                {% empty %}
+                <h3>No News Available</h3>
+                {% endfor %}
+            </div>
+            <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">
+                <div>
+                    <div class="fh5co_heading pt-3 py-2 mb-4">Archives</div>
+                </div>
+
+                {% for n in news %}
+                <a href="{% url 'website:news_details' n.id %}">
+                <div class="row pb-3" style="border-bottom: 1px; #000;">
+                    <!-- <div class="col-md-5 align-self-center" style="width:120px; height:60px;">
+                        {% if n.news_image %}
+                        <img src="{{ BASE_DIR }}/media/{{n.news_image}}" class="img-thumbnail"  alt="" style="height:60px;min-width:100%"/>
+                        {% else %}
+                        <img src="{{ BASE_DIR }}/media/logo/logo.png" class="img-thumbnail"  alt="" style="height:60px;min-width:100%"/>
+                        {% endif %}
+                    </div> -->
+                    <div class="col-md-7 paddding">
+                        <div class="most_fh5co_treding_font"> {{n.title}}</div>
+                        <div class="most_fh5co_treding_font_123"> {{n.created_at}}</div>
+                    </div>
+                </div>
+              </a>
+                {% empty %}
+                <h3>No Archives Available</h3>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+      </div>
+
+      <div class="col-md-4"></div>
+
+    </div>
+  </div>
+
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}
+
+<script src="{% static 'intranet/news-style/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'intranet/news-style/js/tether.min.js' %}"></script>
+<!-- Waypoints -->
+<script src="{% static 'intranet/news-style/js/jquery.waypoints.min.js' %}"></script>
+<!-- Main -->
+<script src="{% static 'intranet/news-style/js/main.js' %}"></script>
+
+{% endblock %}

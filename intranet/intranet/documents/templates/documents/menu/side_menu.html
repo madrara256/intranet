@@ -1,0 +1,69 @@
+<aside class="main-sidebar" style="background-color:#424242;">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="{{ BASE_DIR }}/media/logo/logo.png" class="img-thumbnail" width="50px" height="50px">
+      </div>
+
+    </div>
+
+<ul class="sidebar-menu" data-widget="tree">
+    <li>
+      <a href="{% url 'website:all_news' %}">
+        <i class="fa fa-home" style="color:#2196f3;"></i><span>Home</span>
+      </a>
+    </li>
+    <li class="treeview">
+          <a href="{% url 'documents:departments' %}">
+            <span>Department Documents</span>
+          </a>
+          <ul class="treeview-menu">
+            {% for department in departments %}
+            <li>
+              {% if department.id == 13  %}
+              <p hidden></p>
+              {% elif department.id == 14 %}
+              <p hidden></p>
+              {% else %}
+              <a href="{% url 'documents:department_files' department.id %}">
+                <i class="fa fa-folder" style="color:#2196f3;"></i><span>{{department.name}}</span>
+              </a>
+              {% endif %}
+            </li>
+            {% empty %}
+            <li class="treeview">No Departments</li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li class="treeview">
+              <a href="{% url 'website:home' %}">
+                Application Links
+              </a>
+              <ul class="treeview-menu">
+                {% for application in applications %}
+                <li name="app_links">
+                  <a href="{{application.application_url}}" target="_blank">
+                    <span>{{application.application_name}}</span>
+                  </a>
+                </li>
+                {% empty %}
+                <li class="treeview">No Applications</li>
+                {% endfor %}
+              </ul>
+            </li>
+
+        <li class="">
+          <a  href="{% url 'documents:index' %}">
+            <span>Quick Documents</span>
+            <span class="label label-success pull-right-container">{{public_documents|length}}</span>
+          </a>
+        </li>
+
+</ul>
+
+  </section>
+  <!-- /.sidebar -->
+</aside>

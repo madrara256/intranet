@@ -1,0 +1,56 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+{% endblock %}
+
+{% block content %}
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <!-- /.login-logo -->
+        <div class="login-box-body" style="margin-top:20%;">
+          <p class="login-box-msg">Sign in with your Computer Login Details </p>
+          {% if form.errors %}
+                      <p class="login-box-msg">Username / Password did not match.Please try again.</p>
+                    {% endif %}
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group has-feedback">
+              <input type="text" class="form-control" name="username" placeholder="UserName">
+              <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+              <input type="password" class="form-control" name="password" placeholder="Password">
+              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+              <!-- /.col -->
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+
+              <!-- /.col -->
+            </div>
+          </form>
+
+        </div>
+        <!-- /.login-box-body -->
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+
+  {% include 'documents/menu/side_menu.html' %}
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock %}
+
+{% block custom_script %}
+{% endblock %}

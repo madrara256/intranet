@@ -1,0 +1,99 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+{% block custom_css %}
+
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'intranet/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'intranet/plugins/toastr/build/toastr.css' %}"/>
+<link rel="stylesheet" href="intranet/editor/dist/css/dist/css/wysihtml5.css" type="text/css" />
+
+<style type="text/css">
+
+.form-control{
+  border-radius: 15px;
+}
+
+
+.dropdown:hover .inner {
+display: block;
+background-color: #fff;
+}
+
+.dropdown-toggle:hover{
+  display: block;
+  background-color: #fff;
+}
+
+
+.text{
+  color: #000;
+}
+
+.bs-searchbox{
+  background-color: #fff;
+}
+
+.open:hover{
+  background-color: #fff;
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+{% include 'documents/menu/side_menu.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid">
+    <div class="row" style="margin-top:55px;">
+          <div>
+                <div class="text-center">
+                    <h3>Add Quick Documents</h3>
+                </div>
+
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                   <form method="post" action="{% url 'documents:add_quick_docs' %}" enctype="multipart/form-data">
+                     {% csrf_token %}
+                       <div class="form-group has-feedback">
+                          </div>
+                          <div class="form-group has-feedback">
+                            <label>File Name</label>
+                            <input type="text" class="form-control" name="file_name" placeholder="Filename " style="border: 1px solid #90caf9; border-radius: 10px;" required>
+                          </div>
+
+                          <div class="form-group has-feedback">
+                          <input type="file"  name="department_file" required>
+                       </div>
+
+
+                     <fieldset>
+                       <legend></legend>
+                       <div class="col-md-4"></div>
+                       <div class="col-md-4">
+                       <div class="form-group has-feedback">
+                           <button type="submit" class="btn btn-success btn-block btn-flat">Add Document</button>
+                       </div>
+                       </div>
+                       <div class="col-md-4"></div>
+                     </fieldset>
+                   </form>
+
+                </div>
+                <div class="col-lg-3"></div>
+
+            </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block custom_script %}
+
+{% endblock custom_script %}

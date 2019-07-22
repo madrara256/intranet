@@ -1,0 +1,85 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <section  style="margin-top:50px; padding:10px;">
+    <div class="row">
+
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h3 class="text-center">Finance Trust Bank Departments</h3>
+        <!-- <div class="form-group" style="margin-top:10px;">
+         <input type="text" style="border: 1px solid #90caf9; border-radius: 25px;" class="form-control search-files" id="myInput" onkeyup="searchFiles()" placeholder="Search for Department...">
+        </div> -->
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+
+
+    <div id="outter_element" class="row">
+{% for department in departments %}
+      <div class="col-lg-3 col-xs-6" name="holder">
+          <!-- small box -->
+          <a href="{% url 'documents:department_files' department.id %}">
+            <div class="small-box " style="height:80px; border-radius: 5px; border-color: #b0bec5; background-color:#fff; color:#000;">
+              <div class="row">
+                  <div class="text-center" style="margin-top: 20px;">
+                    <i class="fa fa-folder" style="color:#2196f3; margin-right:5px;"></i><span>{{department.name}}</span>
+                  </div>
+              </div>
+            </div>
+          </a>
+        </div>
+{% empty %}
+No Applications Available
+{% endfor %}
+
+
+    </div>
+  </section>
+
+</div>
+
+<!-- /.content-wrapper -->
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}
+<script type="text/javascript">
+function searchFiles(){
+var input, filter, outter_element, innner_element, holder, i;
+input = document.getElementById('myInput');
+filter = input.value.toUpperCase();
+
+outter_element = document.getElementById('outter_element');
+console.log(outter_element);
+
+innner_element = document.getElementsByName('holder');
+console.log(innner_element);
+
+for(i = 0; i < innner_element.length; i++){
+  holder = innner_element[i].getElementsByTagName('p')[0];
+  console.log(holder.innerHTML);
+  if(holder.innerHTML.toUpperCase().indexOf(filter) > -1){
+    innner_element[i].style.display="";
+  }else {
+    innner_element[i].style.display = "none";
+  }
+}
+}
+
+</script>
+{% endblock %}

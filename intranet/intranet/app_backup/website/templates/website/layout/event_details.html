@@ -1,0 +1,105 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+<style type="text/css">
+.info img video{
+  max-width:100%;
+  max-height:100%;
+}
+.pull-left{
+  font-size: 24px;
+  color: #0085b6;
+}
+.pull-right{
+  font-size: 24px;
+  color: #0085b6;
+}
+.text-center{
+  font-size: 24px;
+  color: #0085b6;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row" style="margin-top:40px; margin-left:20px; margin-right:20px;">
+      <div class="text-center"><h3>Finance Trust Bank Events</h3></div>
+      <!-- Box Comment -->
+        <div class="box box-widget">
+          <div class="box-header with-border">
+            <div class="">
+              <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image">-->
+              <span class="username"><a href="#"><h4 class="text-center">{{events.event_title}}</h4><span class="text-center">By:{{events.created_by.first_name}} {{events.created_by.last_name}} </a></span>
+              <span class="description">Posted - {{events.created_at}}</span>
+            </div>
+            <!-- /.user-block -->
+
+            <!-- /.box-tools -->
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div>
+              <div class="pull-left"><span style="color:#000;">Starts:</span> {{events.event_start_date}} {{events.event_start_time}}</div>
+              <div class="pull-right"><span style="color:#000;">Ends:</span>{{events.event_end_date}} {{events.event_end_time}}</div>
+              <div class="text-center"><span style="color:#000;">@</span>{{events.event_location}}</div>
+            </div>
+
+          </div>
+
+          <div class="box-body" style="margin-top:10px;">
+		{% if event.event_message %}
+            {{events.event_message|safe}}
+		{% else %}
+		No Event Details Available
+		{% endif %}
+          </div>
+
+          <div class="box-body" style="margin-top:10px; margin-bottom:20px;">
+            <h3>Attached Files</h3>
+
+            <div style="height:auto">
+
+                {% ifequal events.event_files.file_type|stringformat:"s"  'Image' %}
+                <img src="{{ BASE_DIR }}{{events.event_files.file}}" class="" alt="" />
+
+                {% endifequal %}
+
+                {% ifequal events.event_files.file_type|stringformat:"s"  'Video' %}
+                <video class="event-data-video news-video"controls>
+                <source src="{{ BASE_DIR }}{{events.event_files.file}}" type="video/mp4">
+                Your browser does not support HTML5 video.
+                </video>
+
+                {% endifequal %}
+
+                {% ifequal events.event_files.file_type|stringformat:"s"  'Document' %}
+                Its a documents
+                {% endifequal %}
+            </div>
+          </div>
+
+        </div>
+        <!-- /.box -->
+
+    </div>
+  </div>
+
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}=
+{% endblock %}

@@ -1,0 +1,74 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row" style="margin-top:40px;">
+      <div class="text-center"><h3>Finance Trust Bank Campaigns/Adverts</h3></div>
+
+      <!-- Box Comment -->
+        <div class="box box-widget">
+          <div class="box-header with-border">
+            <div class="user-block">
+              <span class="username"><a href="#">By:{{advert.created_by.first_name}} {{news.created_by.last_name}} </a></span>
+              <span class="description">Posted - {{advert.created_at}}</span>
+            </div>
+            <!-- /.user-block -->
+            <div class="box-tools">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+            <!-- /.box-tools -->
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <h4>{{advert.advert_itle}}</h4>
+            <p>{{advert.advert_message}}</p>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer box-comments">
+            <div class="box-comment">
+
+              <div class="info" style="height:auto">
+                  {% if advert.advert_image %}
+                  <img src="{{ BASE_DIR }}/media/{{advert.advert_image}}" width="auto" alt="" />
+                  {% endif %}
+
+                  {% if advert.advert_video %}
+                  <video class="event-data-video" width="100%" controls>
+                  <source src="{{ BASE_DIR }}/media/{{advert.advert_video}}" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                  </video>
+                  {% endif %}
+              </div>
+
+            </div>
+            <!-- /.box-comment -->
+          </div>
+        </div>
+        <!-- /.box -->
+
+    </div>
+  </div>
+
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}=
+{% endblock %}

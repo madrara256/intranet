@@ -1,0 +1,109 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+
+<!-- fullCalendar -->
+<link rel="stylesheet" href="{% static 'intranet/bower_components/fullcalendar/dist/fullcalendar.min.css' %}">
+<link rel="stylesheet" href="{% static 'intranet/bower_components/fullcalendar/dist/fullcalendar.print.min.css' %}" media="print">
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row" style="margin-top:40px; margin-left:20px; margin-right:20px;">
+      <div class="text-center"><h3>Finance Trust Bank Events Calendar</h3></div>
+
+      <div class="box box-primary">
+            <div class="box-body no-padding">
+              <!-- THE CALENDAR -->
+              <div id="calendar"></div>
+            </div>
+            <!-- /.box-body -->
+
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}
+
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'intranet/bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
+<!-- Slimscroll -->
+<script src="{% static 'intranet/bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+<!-- FastClick -->
+<script src="{% static 'intranet/bower_components/fastclick/lib/fastclick.js' %}"></script>
+
+<!-- fullCalendar -->
+<script src="{% static 'intranet/bower_components/moment/moment.js' %}"></script>
+<script src="{% static 'intranet/bower_components/fullcalendar/dist/fullcalendar.min.js' %}"></script>
+
+<script type="text/javascript">
+
+$(function () {
+
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+    //Date for the calendar events (dummy data)
+    var date = new Date()
+    var d    = date.getDate(),
+        m    = date.getMonth(),
+        y    = date.getFullYear()
+    $('#calendar').fullCalendar({
+      header    : {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'listWeek,month,agendaWeek,agendaDay'
+      },
+      defaultView: 'listYear',
+      buttonText: {
+        today: 'today',
+        month: 'month',
+        week : 'week',
+        day  : 'day',
+        list : 'list',
+      },
+
+      //Random default events
+      events    : [
+
+         {% for event in events %}
+        {
+          title          : '{{event.event_title}}  -- {{event.event_location}}',
+          start          : '{{event.event_start_date|date:"Y-m-d"}}',
+          end            : '{{event.event_end_date|date:"Y-m-d"}}',
+          url            : '{% url 'website:event_details' event.id %}',
+          backgroundColor: '#3c8dbc',
+          borderColor    : '#3c8dbc'
+        },
+         {% endfor %}
+
+      ],
+
+    })
+
+  })
+
+</script>
+
+{% endblock %}

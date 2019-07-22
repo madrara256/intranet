@@ -1,0 +1,88 @@
+u
+{% extends 'documents/base.html' %}
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+{% include 'documents/menu/side_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <div class="container-fluid" >
+   <div class="row" style="margin-top:55px;">
+    <div class="col-md-12">
+     <!-- Important General Documents Area -->
+    <h5>Important General Documents</h5>
+  {% for document in public_documents %}
+  <div class="col-lg-2">
+  <a href="{{BASE_DIR}}/media/{{document.document_file}}" target="_blank">
+  <div class="panel" style="padding:5px;">
+  <div class="panel-header text-ceneter"></div>
+  <div class="panel-body text-center" style="height:80px;">
+  {{document.document_name}}
+  </div>
+  </div>
+  </a>
+  </div>
+  {% empty %}
+  No Documents Available
+  {% endfor %}
+  </div>
+  <!--  <div class="col-md-5">
+  <h5>Important Links </h5>
+  </div>-->
+  </div>
+  <!-- <div class="row">
+  <div class=" col-md-12">
+  <h5>Application Links</h5>
+  {% for application in applications %}
+  <div class="col-lg-2">
+  <a href="{{application.application_url}}" target="_blank">
+  <div class="panel" style="padding:5px;">
+  <div class="panel-header text-center"></div>
+  <div class="panel-body text-center" style="height:50px;">
+  {{application.application_name}}
+  </div>
+  </div>
+  </a>
+  </div>
+  {% empty %}
+  No Applications Available
+  {% endfor %}
+  </div>
+  </div> -->
+
+  </div>
+  </div>
+
+<!-- /.content-wrapper -->
+
+{% endblock %}
+
+
+
+<ul id="myUL">
+ {% for resource in department.resources %}
+<div class="col-lg-4">
+	<li class="list-unstyled"><a href="{{BASE_DIR}}/media/{{resource.file}}" target="_blank">
+	{{resource.file_name}}
+    <i class="{{resource.document_icon}}" style="color:#b71c1c;" aria-hidden="true"></i>
+	</a></li>
+</div>
+ {% empty %}
+	<li>No Files Available</li>
+{% endfor %}
+</ul>
+
+<ul id="myUL">
+ {% for resource in cat_docs %}
+<div class="col-lg-4">
+	<li class="list-unstyled"><a href="{{BASE_DIR}}/media/{{resource.file}}" target="_blank">
+	{{resource.file_name}}
+  <i class="{{resource.document_icon}}" style="color:#b71c1c;" aria-hidden="true"></i>
+	</a>
+</li>
+</div>
+ {% empty %}
+	<li>No Files Available</li>
+{% endfor %}
+</ul>

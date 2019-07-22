@@ -1,0 +1,45 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <section  style="margin-top:50px; padding:10px;">
+    <div class="error-page">
+      <!-- <h2 class="headline text-yellow"> 404</h2> -->
+
+      <div class="error-content">
+        <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+
+        <p>
+          The Page You are looking for could not be found.
+          Meanwhile, you may <a href="{% url 'website:all_news' %}">return to Home Page</a>
+        </p>
+      </div>
+      <!-- /.error-content -->
+    </div>
+    <!-- /.error-page -->
+  </section>
+
+</div>
+
+<!-- /.content-wrapper -->
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

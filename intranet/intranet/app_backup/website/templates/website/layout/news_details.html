@@ -1,0 +1,101 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'intranet/css/home-page.css' %}">
+  <style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Karla|Open+Sans|Roboto:300|Work+Sans:300');
+  h1 { font-family: sans-serif,'Open Sans'; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; }
+   h3 { font-family: sans-serif,'Open Sans'; font-size: 22px; font-style: normal; font-variant: normal; font-weight: 500; line-height: 5.4px; }
+    p { font-family: sans-serif,'Roboto'; font-size: 16px; font-style: normal;  line-height: 20px; }
+     blockquote { font-family: Tahoma, Verdana, Segoe, sans-serif; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; }
+     pre { font-family: Tahoma, Verdana, Segoe, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5667px; }
+     .box-body img{
+       max-width:100%;
+       max-height:100%;
+     }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <div class="container-fluid">
+    <div class="row" style="margin-top:40px; margin-right:20px; margin-left:20px;">
+      <div class="text-center"><h1>Finance Trust Bank News</h1></div>
+      <!-- Box Comment -->
+        <div class="box box-widget">
+          <div class="box-header with-border">
+            <div class="">
+              <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image">-->
+              <span class="username"><a href="#"><h3>By:{{daily_news.created_by.first_name}} {{daily_news.created_by.last_name}}</h3> </a></span>
+              <span class="description"><p> {{daily_news.created_at}}</p></span>
+              <h3>{{daily_news.title}}</h3>
+            </div>
+            <!-- /.user-block -->
+            <!-- <div class="box-tools">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div> -->
+            <!-- /.box-tools -->
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+
+            <p>{{daily_news.message|safe}}</p>
+            <div style="margin-top:10px; margin-bottom:20px;">
+
+              <div class="info" style="height:auto">
+
+                  {% ifequal daily_news.news_file.file_type|stringformat:"s"  'Image' %}
+                  <h5 style="margin-top:10px; margin-bottom:10px;">Attached Image</h5>
+                  <img src="{{ BASE_DIR }}{{daily_news.news_file.file}}" class="" alt="" />
+
+                  {% endifequal %}
+
+                  {% ifequal daily_news.news_file.file_type|stringformat:"s"  'Video' %}
+                  <h5 style="margin-top:10px; margin-bottom:10px;">Attached Video</h5>
+                  <video class="event-data-video news-video" width="500" controls>
+                  <source src="{{ BASE_DIR }}{{daily_news.news_file.file}}" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                  </video>
+
+
+                  {% endifequal %}
+
+                  {% ifequal daily_news.news_file.file_type|stringformat:"s"  'Document' %}
+                  <h5 style="margin-top:10px; margin-bottom:10px;">Attached Document</h5>
+                  <div class="attached-document">
+                    <ul class="list-group">
+                      <a href="{{BASE_DIR}}{{daily_news.news_file.file}}" target="_blank"><li class="list-group-item">{{daily_news.news_file.file}}</li></a>
+                    </ul>
+                  </div>
+                  {% endifequal %}
+              </div>
+            </div>
+          </div>
+          <!-- /.box-body -->
+
+        </div>
+        <!-- /.box -->
+
+    </div>
+  </div>
+
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'documents/menu/side_menu.html' %}
+
+{% endblock %}
+
+{% block custom_script %}
+
+{% endblock %}

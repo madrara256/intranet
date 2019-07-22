@@ -1,0 +1,87 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+{% endblock %}
+
+{% block content %}
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+<div class="container-fluid" style="margin-right:10px; margin-left:10px;">
+  <h5 class="page-header text-center">{{organisations.organisation_name}} Staff Memebers</h5>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="form-group has-feedback">
+        <input type="text" style="border: 1px solid #0087CC; border-radius: 25px;" class="form-control" name="search" id="myInput" onkeyup="searchFiles()" placeholder="Search staff name ...">
+
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="row" id="outer_element">
+{% for user in users %}
+      <div class="col-md-4 col-sm-6 col-xs-12" name="innner_element">
+          <div class="info-box">
+            <div class="info-box-icon">
+            {% if user.user_image %}
+              <img class="img-circle" src="{{ BASE_DIR }}{{user.user_image}}"/>
+            {% else %}
+              <img class="img-circle" src="http://10.0.2.15//media/user_images/users.png"/>
+            {% endif %}
+            </div>
+
+            <div class="info-box-content">
+              <h5 class="info-box-text">{{user.full_name}}</h5>
+              <div class="">{{user.office_title}} | {{user.department}}</div>
+              <div class="">{{user.branch_name}}</div>
+              <div class="">Joined: {{user.created_at}}</div>
+              <div class=""><a href="{% url 'website:profile_view' user.id %}">View Profile</a></div>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+{% empty %}
+<div class="col-md-4 col-sm-6 col-xs-12">
+      <p>No Staff Members Found</p>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+{% endfor %}
+    </div>
+
+  </div>
+    {% include 'documents/menu/side_menu.html' %}
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock %}
+
+{% block custom_script %}
+<script type="text/javascript">
+
+function searchFiles(){
+  var input, filter , containers, holder, i;
+
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  containers = document.getElementsByName('innner_element')
+
+  for(i=0; i<containers.length; i++){
+    holder = containers[i].getElementsByTagName("h5")[0];
+      if(holder.innerHTML.toUpperCase().indexOf(filter) > -1){
+        containers[i].style.display = "";
+      }else{
+        containers[i].style.display = "none";
+      }
+  }
+
+}
+</script>
+{% endblock %}

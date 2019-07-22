@@ -1,0 +1,157 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+{% endblock %}
+
+{% block content %}
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <!-- Main content -->
+  <section class="content" style="margin-top:50px;">
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <!-- Profile Image -->
+        <div class="box box-primary">
+          <div class="box-body box-profile">
+            {% if staff_profile.user_image %}
+            <img class="profile-user-img img-responsive img-circle" src="{{ BASE_DIR }}{{staff_profile.user_image}}" />
+            {% else %}
+            <img class="profile-user-img img-responsive img-circle" src="{{ BASE_DIR }}/media/user_images/users.png"/>
+            {% endif %}
+            <span class=""><b>Names:</b> {{staff_profile.full_name}}</span>
+            {% if staff_profile.office_title %}
+            <h5 class=""><b>Title: </b> {{staff_profile.office_title}}</h5>
+            {% endif %}
+            <h5 class=""><b>Dept: </b> {{staff_profile.department}}</h5>
+            <h5 class=""><b>Branch:</b> {{staff_profile.branch}}</h5>
+
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <h5>Work Email<h5/>
+                <a href="">{{staff_profile.account_name.email}}</a>
+              </li>
+              <li class="list-group-item">
+                <h5>Work Telephone</h5>
+              <a/>{{staff_profile.user_telephone}}</a>
+              </li>
+              <!-- <li class="list-group-item">
+                <div class="text-center">
+                {% if staff_profile.user_facebook %}
+                <a href="{{staff_profile.user_facebook}}" target="_blank" class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i></a>
+                {% endif %}
+
+                {% if staff_profile.user_twitter %}
+                <a href="{{staff_profile.user_twitter}}" target="_blank" class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+                {% endif %}
+
+                {% if staff_profile.user_linkedin %}
+                <a href="{{staff_profile.user_linkedin}}" target="_blank" class="btn btn-social-icon btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                {% endif %}
+              </div>
+              </li> -->
+            </ul>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+
+      </div>
+      <!-- /.col -->
+      <div class="col-md-8">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#activity" data-toggle="tab">Staff Social Info</a></li>
+
+          </ul>
+          <div class="tab-content">
+
+
+            <div class="active tab-pane" id="activity">
+
+              <!-- Post -->
+              <div class="post">
+                <div class="user-block">
+                        <!-- <h4>Basic Info</h4> -->
+                        <ul class="list-group list-group-unbordered">
+                          <!-- <li class="list-group-item">
+                            <b>BirthDay:</b> {{staff_profile.user_birthday}}
+                          </li> -->
+                          <li class="list-group-item">
+                            <b>Social Telephone:</b> {{staff_profile.user_telephone}}
+                          </li>
+                          <li class="list-group-item">
+                            <b>Social Email:</b> {{staff_profile.user_email}}
+                          </li>
+                          <li class="list-group-item">
+                            <b>linkedin:</b> {{staff_profile.user_linkedin}}
+                          </li>
+                          <!-- <li class="list-group-item">
+                            {% if staff_profile.user_website %}
+                            <b>Personal Website:</b> {{staff_profile.user_website}}
+                            {% else %}
+                            <b>Personal Website:</b> N/A
+                            {% endif %}
+                          </li> -->
+                          <!-- <h4>Brief Bio</h4>
+                          <li class="list-group-item">
+                            {% if staff_profile.user_bio %}
+                            {{staff_profile.user_bio}}
+                            {% else %}
+                            <h5>Bio Not Available</h5>
+                            {% endif %}
+                          </li> -->
+                        </ul>
+                </div>
+                <!-- /.user-block -->
+
+              </div>
+              <!-- /.post -->
+
+
+            </div>
+
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="timeline">
+              <!-- Post -->
+              <div class="post">
+
+                <div class="user-block">
+                      <span class="">
+                        <a href="#">Jonathan Burke Jr.</a>
+                      </span>
+                  <p class="">Posted - 7:30 PM today</p>
+                </div>
+
+              </div>
+
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+  </section>
+  <!-- /.content -->
+
+  {% include 'documents/menu/side_menu.html' %}
+</div>
+
+
+
+{% endblock %}
+
+{% block custom_script %}
+{% endblock %}

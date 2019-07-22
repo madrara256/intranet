@@ -1,0 +1,145 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+
+
+{% block custom_css %}
+<!-- <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet"> -->
+<link rel="stylesheet" href="{% static 'intranet/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
+<link rel="stylesheet" href="{% static 'intranet/plugins/toastr/build/toastr.css' %}">
+<link rel="stylesheet" href="intranet/editor/dist/css/dist/css/wysihtml5.css" type="text/css" />
+
+<style type="text/css">
+
+.form-control{
+  border-radius: 15px;
+}
+
+
+.dropdown:hover .inner {
+display: block;
+background-color: #fff;
+}
+
+.dropdown-toggle:hover{
+  display: block;
+  background-color: #fff;
+}
+
+
+.text{
+  color: #000;
+}
+
+.bs-searchbox{
+  background-color: #fff;
+}
+
+.open:hover{
+  background-color: #fff;
+}
+
+
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <section class="">
+    <div class="row">
+    <div class="panel" style="margin-left:20px; margin-right:20px; margin-top:50px;">
+      <div class="panel-body">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+
+          <form method="post" action="{% url 'website:post_branch_news' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+              <legend class="text-center">Create a News Post</legend>
+              <div class="form-group has-feedback" style="margin-top:20px;">
+
+              <select id="branch" name="branch" class="form-control-sm form-control selectpicker" data-live-search="true" title="Select Your Branch"  required>
+                 {% for branch in branches %}
+                 <option value="{{branch.id}}">{{branch.branch_name}}</option>
+                 {% empty %}
+                 <option value="">..No Branches Available..</option>
+                 {% endfor %}
+             </select>
+           </div>
+                 <div class="form-group has-feedback">
+                   <label>Post Title</label>
+                   <input type="text" class="form-control" name="post_title" placeholder="Blog title" style="border: 1px solid #90caf9; border-radius: 10px;" required>
+                 </div>
+
+                 <div class="form-group">
+                   <label for="blog_message">Post Body</label>
+                    <textarea class="textarea round-input" name="post_message" placeholder="Post Message..."
+                        style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #90caf9; border-radius: 10px; padding:10px;" required></textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+              <legend class="text-center">Attach File<small>(Optional)</small></legend>
+              <div class="form-group has-feedback">
+              <label>Select File Type</label>
+                  <select id="category" name="category" class="form-control-sm form-control selectpicker" title="Select File Type" style="background-color:#fff;">
+                     <option value="Document">Document File</option>
+                     <option value="Video">Video File</option>
+                     <option value="Image">Image File</option>
+                 </select>
+               </div>
+
+              <div class="form-group has-feedback">
+              <input type="file"  name="news_file">
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend></legend>
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+              <div class="form-group has-feedback">
+                  <button type="submit" class="btn btn-success btn-block btn-flat">Post</button>
+              </div>
+              </div>
+              <div class="col-md-4"></div>
+            </fieldset>
+          </form>
+
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+
+ </div>
+  </section>
+</div>
+
+<!-- /.content-wrapper -->
+{% include 'documents/menu/side_menu.html' %}
+{% endblock %}
+
+
+{% block custom_script %}
+<!-- Bootstrap WYSIHTML5 -->
+<script src="{% static 'intranet/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+<script src="{% static 'intranet/editor/dist/js/jquery.Jcrop.js' %}"></script>
+<script src="{% static 'intranet/editor/dist/js/wysihtml5-0.3.0.js' %}"></script>
+<script src="{% static 'intranet/editor/dist/js/wysihtml5-enhanced.js' %}"></script>
+<script type="text/javascript">
+$('.textarea').wysiHTML5N();
+</script>
+<script src="{% static 'intranet/plugins/toastr/toastr.js' %}"></script>
+
+{% if messages %}
+<script type="text/javascript">
+{% for message in messages %}
+toastr.success( "{{message}}" );
+{% endfor %}
+</script>
+{% endif %}
+
+{% endblock %}

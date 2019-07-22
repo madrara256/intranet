@@ -1,0 +1,106 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block custom_css %}
+
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet">
+
+<link href="{% static 'intranet/blog/luidbox.min.css' %}" rel="stylesheet">
+<link href="{% static 'intranet/blog/styless.css' %}" rel="stylesheet">
+<link href="{% static 'intranet/blog/responsive2.css' %}" rel="stylesheet">
+
+<style type="text/css">
+.carousel-inner>.item>img,
+.carousel-inner>.item>a>img {
+        display: block;
+        height: 300px;
+        max-width: 100%;
+        line-height: 1;
+        margin:auto;
+        width: 100%;
+        }
+.news-box{
+  display:block;
+    width:100%;
+}
+.box-body>img{
+  width:100px;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <section class="" style="margin-left:20px; margin-right:20px; margin-top:50px;">
+
+<section class="portfolio-section section" style="margin-top:20px;">
+    <div class="row">
+      <div class="col-lg-8">
+        <h3 class="text-center">FINANCE TRUST BANK INTERNAL COMMUNICATIONS</h3>
+          <div class="portfolioContainer" style="margin-top:20px;">
+            {% for blog in blogs %}
+            <div class="p-item {{blog.department}} news-box">
+                <div class="box box-solid" style="border-radius:10px;">
+                  <div class="box-header with-border">
+                    <div>
+                      <h3 class="box-title"><a href="{% url 'blog:blog_view' blog.id %}">{{blog.blog_title}}</a></h3>
+                      <p>By: {{blog.created_by.first_name}} {{blog.created_by.last_name}},
+                        <i>{{blog.created_at|naturaltime}}</i>. <a href="{% url 'blog:blog_view' blog.id %}">Read Full Memo</a></p>
+
+                    </div>
+                  </div>
+                  <!-- /.box-header -->
+                </div>
+              </div>
+              {% empty %}
+              No Blogs Available...
+              {% endfor %}
+
+
+          </div><!-- portfolioContainer -->
+
+        <!-- portfolio-section -->
+
+      </div>
+      <div class="col-lg-4">
+        <h4 class="text-center" style="margin-top:30px;"><small>Filter by Department</small></h4>
+        <div class="">
+          <div class="portfolioFilter" style="margin-right:20px;">
+            <ul class="list-group">
+            <li class="list-group-item"><a href="#" data-filter="*" class="current"><b>ALL</b></a></li>
+          {% for department in departments %}
+            <li class="list-group-item"><a href="#" data-filter=".{{department.id}}"><b>{{department.name}}</b></a></li>
+          {% empty %}
+          No Categories Available...
+          {% endfor %}
+          <ul>
+          </div><!-- portfolioFilter -->
+        </div><!-- col-sm-8 -->
+      </div>
+    </div>
+    </section>
+
+  </section>
+</div>
+
+<!-- /.content-wrapper -->
+{% include 'documents/menu/side_menu.html' %}
+{% endblock %}
+
+{% block custom_script %}
+<script src="{% static 'intranet/blog/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'intranet/blog/tether.min.js' %}"></script>
+
+<script src="{% static 'intranet/blog/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'intranet/blog/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'intranet/blog/jquery.fluidbox.min.js' %}"></script>
+
+<script src="{% static 'intranet/blog/scripts.js' %}"></script>
+
+{% endblock %}

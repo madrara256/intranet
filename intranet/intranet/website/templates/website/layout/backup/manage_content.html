@@ -1,0 +1,131 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+{% block custom_css %}
+
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'intranet/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'intranet/plugins/toastr/build/toastr.css' %}"/>
+<link rel="stylesheet" href="intranet/editor/dist/css/dist/css/wysihtml5.css" type="text/css" />
+
+<style type="text/css">
+
+.form-control{
+  border-radius: 15px;
+}
+
+
+.dropdown:hover .inner {
+display: block;
+background-color: #fff;
+}
+
+.dropdown-toggle:hover{
+  display: block;
+  background-color: #fff;
+}
+
+
+.text{
+  color: #000;
+}
+
+.bs-searchbox{
+  background-color: #fff;
+}
+
+.open:hover{
+  background-color: #fff;
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+{% include 'documents/menu/side_menu.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid">
+
+
+  <div class="row" style="margin-top:55px;">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Manage Department Documents</h3>
+
+            <div class="box-tools">
+              <div class="input-group input-group-sm" style="width: 400px; margin-bottom:8px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                </div>
+
+                <div class="input-group-btn">
+                  <a href="{% url 'documents:add_department_docs' %}"><button type="submit" class="btn btn-primary" style="margin-left:20px;">Add Department Document</button></a>
+                </div>
+
+                <div class="input-group-btn">
+                  <a href="{% url 'documents:add_quick_docs' %}"><button type="submit" class="btn btn-primary" style="margin-left:20px;">Add Quick Document</button></a>
+                </div>
+
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tr>
+                <th>File Name</th>
+                <th>File</th>
+              </tr>
+              {% for document in department_docs %}
+              <tr>
+                <td><a href="">{{document.file_name}}</a</td>
+                <td>{{document.file}}</td>
+                <td><span class="label label-danger"><a href="" style="color:#fff;">Delete</a></span></td>
+              </tr>
+
+              {% empty %}
+
+              {% endfor %}
+
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block custom_script %}
+<script type="text/javascript">
+function searchFiles(){
+var input, filter, outter_element, innner_element, holder, i;
+input = document.getElementById('myInput');
+filter = input.value.toUpperCase();
+
+outter_element = document.getElementById('outter_element');
+console.log(outter_element);
+
+innner_element = document.getElementsByName('holder');
+console.log(innner_element);
+
+for(i = 0; i < innner_element.length; i++){
+  holder = innner_element[i].getElementsByTagName('p')[0];
+  console.log(holder.innerHTML);
+  if(holder.innerHTML.toUpperCase().indexOf(filter) > -1){
+    innner_element[i].style.display="";
+  }else {
+    innner_element[i].style.display = "none";
+  }
+}
+}
+
+</script>
+{% endblock custom_script %}

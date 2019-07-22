@@ -1,0 +1,112 @@
+
+{% extends 'documents/base.html' %}
+{% block custom_css %}
+<style type="text/css">
+.filter-btn{
+  margin-bottom: 5px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+{% include 'documents/menu/side_menu.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid">
+    <div class="row" style="margin-top:55px;">
+          <div>
+                <div class="text-center">
+                    <h3>Public Files from {{department.name}}</h3>
+                </div>
+                <div>
+<div class="col-md-8">
+<div class="form-group">
+ <input type="text" style="border: 1px solid #90caf9; border-radius: 25px;" class="form-control search-files" id="myInput" onkeyup="searchFiles()" placeholder="Search for files by name...">
+</div>
+
+<div id="outter_element" class="row">
+{% for resource in department.resources %}
+  <div class="col-lg-4 col-xs-6" name="holder">
+      <!-- small box -->
+      <a href="{{BASE_DIR}}/media/{{resource.file}}" target="_blank">
+        <div class="small-box " style="height:80px; border-radius: 5px; border-color: #b0bec5; background-color:#fff; color:#000;">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="text-center" style="margin-top: 5px; font-size:14px;">
+                <p>{{resource.file_name}}</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="app_icon">
+                {% if document.document_icon %}
+                <i class="{{document.document_icon}}" style="color:#b71c1c;" aria-hidden="true"></i>
+                {% else %}
+                <i class="fa fa-file-pdf-o" style="color:#b71c1c;"  aria-hidden="true"></i>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+{% empty %}
+No Documents Available
+{% endfor %}
+</div>
+
+</div>
+<div class="pull-right">
+  <h5 style="margin-right:5px;">Search Document Categories</h5>
+           {% for c in categories %}
+           <div class="filter-btn" style="margin-right:5px;">
+             <a href="{% url 'documents:category_files' department.id c.id %}" class="btn btn-primary btn-sm btn-block">
+              {{c.category_name}}
+            </a>
+            </div>
+           {% empty %}
+           <div class="filter-btn">
+             <button class="btn btn-primary btn-sm btn-block">
+              No Categories Available
+            </a>
+            </div>
+           {% endfor %}
+</div>
+                </div>
+            </div>
+<!--
+        </div>
+        <div class="col-md-1"></div>-->
+    </div>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block custom_script %}
+<script type="text/javascript">
+function searchFiles(){
+var input, filter, outter_element, innner_element, holder, i;
+input = document.getElementById('myInput');
+filter = input.value.toUpperCase();
+
+outter_element = document.getElementById('outter_element');
+console.log(outter_element);
+
+innner_element = document.getElementsByName('holder');
+console.log(innner_element);
+
+for(i = 0; i < innner_element.length; i++){
+  holder = innner_element[i].getElementsByTagName('p')[0];
+  console.log(holder.innerHTML);
+  if(holder.innerHTML.toUpperCase().indexOf(filter) > -1){
+    innner_element[i].style.display="";
+  }else {
+    innner_element[i].style.display = "none";
+  }
+}
+}
+
+</script>
+{% endblock custom_script %}

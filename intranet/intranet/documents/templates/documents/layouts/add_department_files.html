@@ -1,0 +1,134 @@
+
+{% extends 'documents/base.html' %}
+{% load static %}
+{% block custom_css %}
+
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'intranet/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'intranet/plugins/toastr/build/toastr.css' %}"/>
+<link rel="stylesheet" href="intranet/editor/dist/css/dist/css/wysihtml5.css" type="text/css" />
+
+<style type="text/css">
+
+.form-control{
+  border-radius: 15px;
+}
+
+
+.dropdown:hover .inner {
+display: block;
+background-color: #fff;
+}
+
+.dropdown-toggle:hover{
+  display: block;
+  background-color: #fff;
+}
+
+
+.text{
+  color: #000;
+}
+
+.bs-searchbox{
+  background-color: #fff;
+}
+
+.open:hover{
+  background-color: #fff;
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% include 'documents/menu/top_menu.html' %}
+{% include 'documents/menu/side_menu.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid">
+    <div class="row" style="margin-top:55px;">
+          <div>
+                <div class="text-center">
+                    <h3>Add Your Department Documents</h3>
+                </div>
+
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                   <div class="box">
+                     <div class="box-body">
+                       <form method="post" action="{% url 'documents:add_department_docs' %}" enctype="multipart/form-data">
+                         {% csrf_token %}
+                           <div class="form-group has-feedback">
+                             <label>Select a Category</label>
+                                 <select id="category" name="category" class="form-control-sm form-control selectpicker" data-live-search="true" title="Select Document Category"  required>
+                                     {% for c in categories %}
+                                    <option value="{{c.id}}">{{c.category_name}}</option>
+                                    {% empty %}
+                                    <option value="">..No Categories Available..</option>
+                                    {% endfor %}
+                                </select>
+                              </div>
+                              <div class="form-group has-feedback">
+                                <label>File Name</label>
+                                <input type="text" class="form-control" name="file_name" placeholder="Filename " style="border: 1px solid #90caf9; border-radius: 10px;" required>
+                              </div>
+
+                              <div class="form-group has-feedback">
+                              <input type="file"  name="department_file" required>
+                           </div>
+
+
+                         <fieldset>
+                           <legend></legend>
+                           <div class="col-md-4"></div>
+                           <div class="col-md-4">
+                           <div class="form-group has-feedback">
+                               <button type="submit" class="btn btn-success btn-block btn-flat">Add Document</button>
+                           </div>
+                           </div>
+                           <div class="col-md-4"></div>
+                         </fieldset>
+                       </form>
+                     </div>
+                   </div>
+
+                </div>
+                <div class="col-lg-3"></div>
+
+            </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block custom_script %}
+<script type="text/javascript">
+function searchFiles(){
+var input, filter, outter_element, innner_element, holder, i;
+input = document.getElementById('myInput');
+filter = input.value.toUpperCase();
+
+outter_element = document.getElementById('outter_element');
+console.log(outter_element);
+
+innner_element = document.getElementsByName('holder');
+console.log(innner_element);
+
+for(i = 0; i < innner_element.length; i++){
+  holder = innner_element[i].getElementsByTagName('p')[0];
+  console.log(holder.innerHTML);
+  if(holder.innerHTML.toUpperCase().indexOf(filter) > -1){
+    innner_element[i].style.display="";
+  }else {
+    innner_element[i].style.display = "none";
+  }
+}
+}
+
+</script>
+{% endblock custom_script %}
