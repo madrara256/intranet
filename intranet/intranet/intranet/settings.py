@@ -120,12 +120,12 @@ AUTHENTICATION_BACKENDS = (
 )
 
 #LDAP Configuration
-AUTH_LDAP_SERVER_URI = 'ldap://192.168.0.89:389'
-AUTH_LDAP_BIND_DN = 'request.tracker@financetrust.co.ug'
-AUTH_LDAP_BIND_PASSWORD = 'ict+1234'
+AUTH_LDAP_SERVER_URI = 'dap://00.00.0.89:00'#ldap auth server details
+AUTH_LDAP_BIND_DN = 'user@user.com'#user 
+AUTH_LDAP_BIND_PASSWORD = 'user_password'#user password for authentication
 
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
-'ou=FTUsers, dc=financetrust, dc=co, dc=ug',
+'ou=fillyourserverdetails, dc=domain_name, dc=com, dc=ug',
 ldap.SCOPE_SUBTREE,
 '(sAMAccountName=%(user)s)')
 
